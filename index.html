@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Person List</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <style>
+    body {
+      background-color: #98bde7;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 15px;
+
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    .person-container {
+      border: 3px solid #ccc;
+      border-radius: 15px;
+      padding: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .person-container h3 {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Person List</h1>
+    <button onclick="fetchPersonList()" class="btn btn-success mt-3 mb-3">Fetch Person List</button>
+    <ul id="person-list"></ul>
+  </div>
+
+  <script>
+    const hostAddress = 'http://localhost:5095';
+    const personList = document.getElementById('person-list');
+
+    async function fetchPersonList() {
+      try {
+        // Check if there is internet connection
+        const isOnline = navigator.onLine;
+        let data;
+
+        if (isOnline) {
+          // If online, fetch data from the API
+          const response = await fetch(`${hostAddress}/api/People`);
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          data = await response.json();
+          localStorage.setItem('personList', JSON.stringify(data));
+        }
+        else {
+          // If offline, fetch data from local storage
+          const storedData = localStorage.getItem('personList');
+          if (storedData) {
+            data = JSON.parse(storedData);
+          } else {
+            throw new Error('No data available offline');
+          }
+        }
+
+        // Display the retrieved data
+        data.forEach(person => displayPerson(person));
+
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    }
+
+
+    // Function to display person data
+    function displayPerson(person) {
+      const personContainer = document.createElement('div');
+      personContainer.classList.add('person-container');
+      personContainer.innerHTML = `
+    <h3>${person.name}</h3>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="name-${person.id}" class="font-weight-bold">Name:</label>
+          <input type="text" class="form-control" id="name-${person.id}" value="${person.name}" placeholder="New Name">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="phone-${person.id}" class="font-weight-bold">Phone:</label>
+          <input type="text" class="form-control" id="phone-${person.id}" value="${person.phone}" placeholder="New Phone">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="departmentId-${person.id}" class="font-weight-bold">Department ID:</label>
+          <input type="text" class="form-control" id="departmentId-${person.id}" value="${person.departmentId}" placeholder="New Department ID">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="street-${person.id}" class="font-weight-bold">Street:</label>
+          <input type="text" class="form-control" id="street-${person.id}" value="${person.street}" placeholder="New Street">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="city-${person.id}" class="font-weight-bold">City:</label>
+          <input type="text" class="form-control" id="city-${person.id}" value="${person.city}" placeholder="New City">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="state-${person.id}" class="font-weight-bold">State:</label>
+          <input type="text" class="form-control" id="state-${person.id}" value="${person.state}" placeholder="New State">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="zip-${person.id}" class="font-weight-bold">Zip:</label>
+          <input type="text" class="form-control" id="zip-${person.id}" value="${person.zip}" placeholder="New Zip">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="country-${person.id}" class="font-weight-bold">Country:</label>
+          <input type="text" class="form-control" id="country-${person.id}" value="${person.country}" placeholder="New Country">
+        </div>
+      </div>
+    </div>
+    <button onclick="updatePerson(${person.id})" class="btn btn-warning mt-3">Update</button>
+  `;
+      personList.appendChild(personContainer);
+    }
+
+    // Function to update person
+    async function updatePerson(pid) {
+      const updatedPerson = {
+        id: pid,
+        name: document.getElementById(`name-${pid}`).value,
+        phone: document.getElementById(`phone-${pid}`).value,
+        departmentId: 1,//document.getElementById(`departmentId-${pid}`).value,
+        street: document.getElementById(`street-${pid}`).value,
+        city: document.getElementById(`city-${pid}`).value,
+        state: document.getElementById(`state-${pid}`).value,
+        zip: document.getElementById(`zip-${pid}`).value,
+        country: document.getElementById(`country-${pid}`).value,
+        department: null
+      };
+
+      try {
+        console.log(`${hostAddress}/api/people/${pid}`);
+        console.log(JSON.stringify(updatedPerson, null, 4));
+        const response = await fetch(`${hostAddress}/api/people/${pid}`, {
+          method: 'PUT',
+          body: JSON.stringify(updatedPerson),
+          cache: 'no-cache',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json; charset=utf-8'
+          }
+        }
+        );
+
+        if (!response.ok) {
+          throw new Error('Failed to update person.');
+        }
+
+        const updatedPersonData = await response.json();
+        console.log('Person updated successfully:', updatedPersonData);
+        // Handle success scenario, e.g., updating UI
+      } catch (error) {
+        console.error('Error updating person:', error.message);
+        // Handle error scenario
+      }
+    }
+  </script>
+</body>
+
+</html>
