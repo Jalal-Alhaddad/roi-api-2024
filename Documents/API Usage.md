@@ -115,7 +115,7 @@ dotnet new webapi  -minimal
 ### Add Packages
 
 ```bash
-dotnet add package Microsoft.EntityFrameworkCore.Sqlite 
+dotnet add package Microsoft.EntityFrameworkCore.Sqlite
 dotnet add package Microsoft.EntityFrameworkCore.Tools
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
 ```
@@ -155,3 +155,42 @@ To send requests using the `.http` file, follow these steps:
 4. Click on the "**Send Request**" button that appears over each request in the file to execute the request.
 
 ![image](../Images/JH_2024-05-12-20-55-51.png)
+
+### Installing SQl Server Client(mssql) Extension in VSCode
+
+To install the SQl Server Client(mssql) extension in Visual Studio Code (VSCode), follow these steps:
+
+1. Open VSCode.
+2. Go to the Extensions view by clicking on the Extensions icon in the Sidebar or pressing `Ctrl+Shift+X`.
+3. Search for "SQl Server Client(mssql)" in the Extensions Marketplace.
+4. Click on the "Install" button next to the SQl Server Client(mssql) extension.
+
+![SQl Server Client(mssql)](../Images/JH_2024-05-26-18-26-53.png)
+
+### Connect to SQLite database using SQl Server Client(mssql) Extension
+
+- From the activities bar in vscode select database icon
+
+![database](../Images/JH_2024-05-26-18-29-25.png)
+
+- click on Create Connection button
+
+![CreateConnection](../Images/JH_2024-05-26-18-30-16.png)
+
+- You will see the following from, select SQLite database
+
+![type](../Images/JH_2024-05-26-18-32-03.png)
+
+- In the Database Path select the path to the SQLite database the exists in the same folder of the API, ans press on Connect button
+
+- You will see the content of the database in the explorer pan
+
+![content](../Images/JH_2024-05-26-18-35-11.png)
+
+- Select the table and click on the right icon to display the content of the table
+
+![Select](../Images/JH_2024-05-26-18-37-29.png)
+
+- You can see the content of the table (People table)
+
+![people](../Images/JH_2024-05-26-18-39-33.png)
