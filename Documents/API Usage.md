@@ -1,6 +1,36 @@
-# API Usage
+# API Usage (MSSQL EXPRESS version)
 
-## Clone the repo
+## 1. Install Microsoft dot.net SDK
+
+- [Download .NET](https://dotnet.microsoft.com/en-us/download/dotnet)
+
+## 2. Install Visual Studio Code
+
+- [Download vscode](https://code.visualstudio.com/download)
+
+## 3. Download C# Dev Kit Extensions
+
+- [C# Dev Kit Extensions](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit)
+
+## 4. Download dot.net tool ef
+
+- [Entity Framework Core tools reference](https://learn.microsoft.com/en-us/ef/core/cli/dotnet)
+
+Install `dotnet-ef` globally
+
+```bash
+dotnet tool install --global dotnet-ef
+```
+
+List globally installed dotnet tools
+
+```bash
+dotnet tool list -g
+```
+
+## 5. MSSQL EXPRESS Database installed
+
+## 6. Clone the repo
 
 To clone the repository, use the following command:
 
@@ -10,7 +40,7 @@ git clone <repository_url>
 
 Replace <repository_url> with the URL of the repository.
 
-## Restore packages
+## 7. Restore packages
 
 To ensure that all packages are restored before running the application, you can explicitly run the following command after cloning:
 
@@ -18,7 +48,7 @@ To ensure that all packages are restored before running the application, you can
 dotnet restore
 ```
 
-## Updating appsettings.json
+## 8. Updating `appsettings.json`
 
 After cloning the repository, navigate to the project directory and update the appsettings.json file to include the following connection string under the "ConnectionStrings" section:
 
@@ -32,26 +62,29 @@ After cloning the repository, navigate to the project directory and update the a
 
 Replace "Database=roi_database with your desired database name.
 
-## Creating the Database
+## 9. Creating the Database
 
 Once the appsettings.json file is updated, run the following commands to create the database:
 
 ```bash
-dotnet ef migrations add InitialCreate
 dotnet ef database update
 ```
 
-## Run the API
+## 10. Run the API
 
 ```bash
 dotnet run
 ```
 
 > After running the program, check the **IP address** of the server and update the `.http` file variable accordingly.
+>
+> This project ip address is configured in `/Properties/launchSettings.json`  as `http://localhost:5095`
 
-![image2](Images/JH_2024-05-12-21-07-52.png)
+![image2](../Images/JH_2024-05-12-21-07-52.png)
 
-## Update the database in case of code changes
+## 11. Extra
+
+### Update the database in case of code changes
 
 If you make changes to the code that affect the database schema, you may need to delete existing migrations and update the database. To do this, follow these steps:
 
@@ -64,20 +97,20 @@ dotnet ef database update                   # 4. Update the database with the ne
 
 These commands will remove existing migrations, generate a new initial migration based on the current state of the models, and apply the migration to update the database accordingly.
 
-## Drop and Create new database
+### Drop and Create new database
 
 ```bash
 dotnet ef database drop --force
 dotnet ef database update
 ```
 
-## Create new project
+### Create new project
 
 ```bash
 dotnet new webapi  -minimal
 ```
 
-## Add Packages
+### Add Packages
 
 ```bash
 dotnet add package Microsoft.EntityFrameworkCore.SqlServer
@@ -85,7 +118,7 @@ dotnet add package Microsoft.EntityFrameworkCore.Tools
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
 ```
 
-## Installing REST Client Extension in VSCode
+### Installing REST Client Extension in VSCode
 
 To install the REST Client extension in Visual Studio Code (VSCode), follow these steps:
 
@@ -93,6 +126,8 @@ To install the REST Client extension in Visual Studio Code (VSCode), follow thes
 2. Go to the Extensions view by clicking on the Extensions icon in the Sidebar or pressing `Ctrl+Shift+X`.
 3. Search for "REST Client" in the Extensions Marketplace.
 4. Click on the "Install" button next to the REST Client extension.
+
+![rest](../Images/JH_2024-05-26-17-32-46.png)
 
 ### Using .http file to Test the API
 
@@ -117,4 +152,4 @@ To send requests using the `.http` file, follow these steps:
 3. Modify the base URL variable `@HostAddress` if needed.
 4. Click on the "**Send Request**" button that appears over each request in the file to execute the request.
 
-![image](Images/JH_2024-05-12-20-55-51.png)
+![image](../Images/JH_2024-05-12-20-55-51.png)
