@@ -1,4 +1,4 @@
-# API Usage (MSSQL EXPRESS version)
+# API Usage (SQLITE version)
 
 ## 1. Install Microsoft dot.net SDK
 
@@ -28,7 +28,9 @@ List globally installed dotnet tools
 dotnet tool list -g
 ```
 
-## 5. MSSQL EXPRESS Database installed
+## 5. SQLITE Database
+
+- No need to install
 
 ## 6. Clone the repo
 
@@ -55,12 +57,12 @@ After cloning the repository, navigate to the project directory and update the a
 ```json
 {
   "ConnectionStrings": {
-    "DefaultConnection": "Server=(localdb)\\MSSQLLocalDB;Database=roi_database;Trusted_Connection=True;"
+    "DefaultConnection": "Data Source=mydatabase.db"
   }
 }
 ```
 
-Replace "Database=roi_database with your desired database name.
+Replace "Data Source=mydatabase.db" with your desired database name.
 
 ## 9. Creating the Database
 
@@ -113,7 +115,7 @@ dotnet new webapi  -minimal
 ### Add Packages
 
 ```bash
-dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+dotnet add package Microsoft.EntityFrameworkCore.Sqlite 
 dotnet add package Microsoft.EntityFrameworkCore.Tools
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
 ```

@@ -2,7 +2,7 @@
 
 The project contains markdown files that provide detailed documentation about the API. These files are:
 
-- [API Usage](/Documents/API%20Usage.md)
+- [API Usage (sqlite)](/Documents/API%20Usage.md)
 - [Understanding Fetch API](/Documents/Understanding%20Fetch%20API.md)
 
 Additionally, HTML files are available for a more visually appealing representation of the documentation. You can access these files:

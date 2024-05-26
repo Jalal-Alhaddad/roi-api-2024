@@ -23,7 +23,7 @@ Content-Type: application/json
 ###
 
 # PUT update department
-PUT {{HostAddress}}/api/departments/5 HTTP/1.1
+PUT {{HostAddress}}/api/departments/6 HTTP/1.1
 Content-Type: application/json
 
 {
@@ -34,7 +34,7 @@ Content-Type: application/json
 ###
 
 # DELETE department
-DELETE {{HostAddress}}/api/departments/5 HTTP/1.1
+DELETE {{HostAddress}}/api/departments/6 HTTP/1.1
 
 ### People CRUD Operations ###
 
@@ -55,7 +55,7 @@ Content-Type: application/json
 {
     "name": "New Person",
     "phone": "1234567890",
-    "departmentId": 0,
+    "departmentId": 1,
     "street": "123 Main St",
     "city": "Anytown",
     "state": "ST",
@@ -66,14 +66,14 @@ Content-Type: application/json
 ###
 
 # PUT update person
-PUT {{HostAddress}}/api/people/8 HTTP/1.1
+PUT {{HostAddress}}/api/people/6 HTTP/1.1
 Content-Type: application/json
 
 {
     "id": 6,
     "name": "Updated Person",
     "phone": "0987654321",
-    "departmentId": 0,
+    "departmentId": 2,
     "street": "456 Elm St",
     "city": "Othertown",
     "state": "OT",
